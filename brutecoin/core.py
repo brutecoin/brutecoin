@@ -17,5 +17,5 @@ def generate_private_keys(start, stop, limit=None):
 
 
 def processing(args):
-    for key in generate_private_keys(1, 256, 10):
+    for key in generate_private_keys(args.start, args.stop, 10):
         print(key)

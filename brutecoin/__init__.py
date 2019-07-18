@@ -11,6 +11,20 @@ def main(argv):
         add_help=False
     )
 
+    arg_parser.add_argument(
+        '--start',
+        type=int,
+        default='1',
+        help='lower bound of private key range'
+    )
+
+    arg_parser.add_argument(
+        '--stop',
+        type=int,
+        default='1',
+        help='upper bound of private key range'
+    )
+
     args = arg_parser.parse_args(argv)
 
     processing(args)
