@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from pathlib import Path
 
 from .core import processing
 
@@ -9,6 +10,14 @@ def main(argv):
         description='Application for brute-force private keys and the '
                     'corresponding addresses of Bitcoin puzzle transaction',
         add_help=False
+    )
+
+    arg_parser.add_argument(
+        '--keys-path',
+        dest='keys_path',
+        type=Path,
+        default=None,
+        help='keys file path'
     )
 
     arg_parser.add_argument(
