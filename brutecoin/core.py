@@ -1,6 +1,9 @@
 import random
 
 
+KEYS_PATH = 'keys.txt'
+
+
 def format_as_hex(number, length=64):
     return f'{hex(number)[2:]:0>{length}}'
 
@@ -17,5 +20,7 @@ def generate_private_keys(start, stop, limit=None):
 
 
 def processing(args):
-    for key in generate_private_keys(args.start, args.stop, args.limit):
-        print(key)
+    with open(KEYS_PATH, 'a') as fp:
+        for key in generate_private_keys(args.start, args.stop, args.limit):
+            fp.write(key + '\n')
+            print(key)
