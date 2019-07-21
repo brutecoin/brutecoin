@@ -1,2 +1,2 @@
-def processing():
+def processing(args):
     pass
