@@ -19,6 +19,15 @@ def main(argv):
         add_help=False
     )
 
+    # Positional argument
+    arg_parser.add_argument(
+        'mode',
+        type=str,
+        choices=['addr', 'pk'],
+        help='limit of the keys number'
+    )
+
+    # Optional arguments
     arg_parser.add_argument(
         '--keys-path',
         dest='keys_path',
