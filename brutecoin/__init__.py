@@ -24,7 +24,14 @@ def main(argv):
         '--limit',
         type=int,
         default='1',
-        help='limit of the keys number'
+        help='limit of the keys number per process'
+    )
+
+    arg_parser.add_argument(
+        '--processes',
+        type=int,
+        default='1',
+        help='number of processes'
     )
 
     arg_parser.add_argument(
