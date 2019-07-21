@@ -12,6 +12,13 @@ def main(argv):
     )
 
     arg_parser.add_argument(
+        '--limit',
+        type=int,
+        default='1',
+        help='limit of the keys number'
+    )
+
+    arg_parser.add_argument(
         '--start',
         type=int,
         default='1',
