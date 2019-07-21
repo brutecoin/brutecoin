@@ -9,7 +9,7 @@ def generate_hex_in_range(start, stop):
     return format_as_hex(random.randrange(start, stop + 1))
 
 
-def generate_private_keys(start, stop, limit=None):
+def key_generator(start, stop, limit=None):
     num = 0
     while limit is None or num < limit:
         yield generate_hex_in_range(start, stop)
@@ -17,7 +17,7 @@ def generate_private_keys(start, stop, limit=None):
 
 
 def processing(args):
-    generator = generate_private_keys(args.start, args.stop, args.limit)
+    generator = key_generator(args.start, args.stop, args.limit)
     if args.keys_path:
         with open(args.keys_path, 'a') as fp:
             for key in generator:
