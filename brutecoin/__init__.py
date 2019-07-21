@@ -4,6 +4,13 @@ from pathlib import Path
 from .core import processing
 
 
+def int_or_hex(string):
+    if isinstance(string, str):
+        return int(string, 16)
+    else:
+        return int(string)
+
+
 def main(argv):
     arg_parser = ArgumentParser(
         prog='brutecoin',
@@ -36,14 +43,14 @@ def main(argv):
 
     arg_parser.add_argument(
         '--start',
-        type=int,
+        type=int_or_hex,
         default='1',
         help='lower bound of private key range'
     )
 
     arg_parser.add_argument(
         '--stop',
-        type=int,
+        type=int_or_hex,
         default='1',
         help='upper bound of private key range'
     )
