@@ -1,0 +1,7 @@
+[flake8]
+enable-extensions = G
+exclude = .git
+ignore = A003,W503
+inline-quotes = '
+max-complexity = 6
+max-line-length = 79
