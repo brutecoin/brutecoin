@@ -25,6 +25,7 @@ mypy = "*"
 pre-commit = "*"
 
 [packages]
+bitcoin = "*"
 
 [requires]
 python_version = "3.8"
