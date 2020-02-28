@@ -1,8 +1,13 @@
+import logging
 from multiprocessing import Process
+from pathlib import Path
 
 import bitcoin
 
 from brutecoin.utils import generate_hex_in_range, split_range
+
+
+logger = logging.getLogger(__name__)
 
 
 def addresses_generator(keys):
@@ -24,13 +29,12 @@ def key_generator(start, stop, limit=None):
 def addresses_processing(keys_path, compressed=True):
     keys = read_keys(keys_path)
     if compressed:
-        keys = (bitcoin.encode_privkey(k, 'wif_compressed')
-                for k in keys)
+        keys = (bitcoin.encode_privkey(k, 'wif_compressed') for k in keys)
 
     generator = addresses_generator(keys)
 
     for address in generator:
-        print(address)
+        logger.info(address)
 
 
 def keys_processing(keys_path, limit, start, stop):
@@ -41,7 +45,11 @@ def keys_processing(keys_path, limit, start, stop):
                 fp.write(key + '\n')
     else:
         for key in generator:
-            print(key)
+            logger.info(key)
+
+
+def add_suffix_to_path(path: Path, suffix: str) -> Path:
+    return path.with_suffix(f'{path.suffix}.{suffix}')
 
 
 def processing(args):
@@ -52,12 +60,16 @@ def processing(args):
         processes = [
             Process(
                 target=keys_processing,
-                kwargs=dict(
-                    keys_path=args.keys_path,
-                    limit=args.limit,
-                    start=start,
-                    stop=stop
-                ))
+                kwargs={
+                    'keys_path': (
+                        args.keys_path
+                        and add_suffix_to_path(args.keys_path, start)
+                    ),
+                    'limit': args.limit,
+                    'start': start,
+                    'stop': stop,
+                },
+            )
             for start, stop in ranges
         ]
 
@@ -67,5 +79,4 @@ def processing(args):
         for process in processes:
             process.join()
     elif args.mode == 'addr':
-        assert args.keys_path
         addresses_processing(args.keys_path)
